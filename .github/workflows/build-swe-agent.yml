@@ -1,5 +1,4 @@
 name: build-swe-agent
-
 on:
   workflow_dispatch:  # Manual trigger
   push:
@@ -10,25 +9,24 @@ on:
     branches: ["main"]
     paths:
       - "docker/**"
-
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-    
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
+      
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-
-      - name: Log in to Azure Container Registry
-        uses: docker/login-action@v3
+      
+      - name: Azure login
+        uses: azure/login@v1
         with:
-          registry: crplexicus.azurecr.io
-          username: ${{ secrets.AZURE_CR_USERNAME }}
-          password: ${{ secrets.AZURE_CR_PASSWORD }}
-
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      
+      - name: Log in to ACR
+        run: az acr login -n crplexicus
+      
       - name: Extract branch name
         id: extract_branch
         run: |
@@ -36,7 +34,7 @@ jobs:
           BRANCH_NAME=${GITHUB_REF#refs/heads/}
           BRANCH_NAME=${BRANCH_NAME//[^a-zA-Z0-9_]/-}
           echo "branch=$BRANCH_NAME" >> $GITHUB_ENV
-
+      
       - name: Build and push swe-agent
         uses: docker/build-push-action@v5
         with:
@@ -47,7 +45,10 @@ jobs:
           tags: |
             crplexicus.azurecr.io/swe-agent:${{ env.branch }}-${{ github.run_number }}
             crplexicus.azurecr.io/swe-agent:latest
-
-      - name: Log out from Azure Container Registry
+      
+      - name: Log out
         if: always()
-        run: docker logout crplexicus.azurecr.io
+        run: |
+          az logout
+          az acr logout -n crplexicus
+
