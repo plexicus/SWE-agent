@@ -47,7 +47,7 @@ jobs:
           push: true
           tags: |
             crplexicus.azurecr.io/swe-agent-run:${{ env.branch }}-${{ github.run_number }}
-            crplexicus.azurecr.io/swe-agent-run:latest
+            ${{ github.ref == 'refs/heads/main' && 'crplexicus.azurecr.io/swe-agent-run:latest' || 'crplexicus.azurecr.io/swe-agent-run:dev' }}
 
       - name: Log out
         if: always()
