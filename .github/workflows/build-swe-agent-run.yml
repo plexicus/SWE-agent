@@ -49,6 +49,6 @@ jobs:
             crplexicus.azurecr.io/swe-agent-run:${{ env.branch }}-${{ github.run_number }}
             crplexicus.azurecr.io/swe-agent-run:latest
 
-      - name: Log out from Docker Hub
+      - name: Log out
         if: always()
-        run: docker logout
+        run: docker logout crplexicus.azurecr.io
