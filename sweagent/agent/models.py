@@ -1005,6 +1005,7 @@ def get_model(args: ModelArguments, commands: list[Command] | None = None):
         args.model_name.startswith("gpt")
         or args.model_name.startswith("ft:gpt")
         or args.model_name.startswith("azure:gpt")
+        or args.model_name.startswith("azure:o1")
         or args.model_name in OpenAIModel.SHORTCUTS
     ):
         return OpenAIModel(args, commands)
