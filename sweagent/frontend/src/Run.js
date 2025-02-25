@@ -22,22 +22,16 @@ function Run() {
         model_name: "gpt4",
       },
     },
+    problem_statement: {
+      type: "",
+      input: "",
+    },
     environment: {
-      data_path: "",
-      repo_path: "",
-      base_commit: "",
-      environment_setup: {
-        input_type: "manual",
-        manual: {
-          python: "3.10",
-          config_type: "manual",
-          install: "pip install --editable .",
-          install_command_active: true,
-          pip_packages: "",
-        },
-        script_path: {
-          script_path: "",
-        },
+      image_name: "",
+      script: "",
+      repo: {
+        type: "",
+        input: "",
       },
     },
     extra: {
@@ -297,7 +291,7 @@ function Run() {
           <br />
           If you think this was a bug, please head over to{" "}
           <a
-            href="https://github.com/princeton-nlp/swe-agent/issues"
+            href="https://github.com/SWE-agent/SWE-agent/issues"
             target="blank"
           >
             our GitHub issue tracker

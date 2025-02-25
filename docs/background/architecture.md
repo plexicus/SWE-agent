@@ -1,5 +1,8 @@
 # Architecture
 
+!!! warning "Out of date"
+    This page is a bit out of date for SWE-agent 1.0.0. We're working on it!
+
 This page walks you through the general architecture of the SWE-agent package. Want to just run it? Jump ahead to the [installation](../installation/index.md) or [usage](../usage/index.md) sections.
 
 ![architecture](../assets/architecture.png)
@@ -12,4 +15,4 @@ The second class that is initialized by `run.py` is the [`Agent`](../reference/a
 
 To prompt the model, the history (all prompts to the model together with actions and outputs) need to be sent to the LM. In order to make the best use of the context window of the model, the history gets compressed by a `HistoryProcessor` (7). The model output (8) is then interpreted by the `Agent` class and executed in the Shell session via `SWEEnv`.
 
-The [ACI](aci.md) elements are implemented as [custom commands](../config/commands.md) (9) that are available to the shell session.
+The [ACI](aci.md) elements are implemented as [custom commands](../config/tools.md) (9) that are available to the shell session.

@@ -55,6 +55,47 @@ Some of the tests might be slower than others. You can exclude them with
 pytest -m "not slow"
 ```
 
+You can run all tests in parallel with `pytest-xdist`:
+
+```bash
+pytest -n auto
+```
+
+If you are using VSCode, you might want to add the following two files:
+
+<details>
+<summary><code>.vscode/launch.json</code></summary>
+
+```json
+--8<-- "docs/dev/vscode_launch.json"
+```
+</details>
+
+<details>
+<summary><code>.vscode/settings.json</code></summary>
+
+```json
+--8<-- "docs/dev/vscode_settings.json"
+```
+</details>
+
+## Debugging
+
+We recommend to install `pdbpp` for some improved debugger features:
+
+```bash
+pip install pdbpp
+```
+
+Set breakpoints with `breakpoint()` and then run `sweagent` with `pdb`:
+
+```bash
+pdb -m sweagent <command> -- <more command line arguments> # (1)!
+```
+
+1. Note the `--` before the options passed to sweagent. This is to separate
+  options passed to `pdb` from those that are passed to `sweagent`.
+
 ## Tips for pull requests
 
 * If you see a lot of formatting-related merge conflicts, please see [here](formatting_conflicts.md).
@@ -62,13 +103,13 @@ pytest -m "not slow"
 * It might be good to open an issue and discuss first before investing time on an experimental feature.
 * Don't know where to get started? Look for issues marked [👋 good first issue][gfi] or [🙏 help wanted][help_wanted]
 * When changing the behavior of the agent, we need to have some indication that it actually improves the success rate of SWE-agent.
-  However, if you make the behavior optional without complicating SWE-agent (for example by providing new [commands](../config/commands.md)),
+  However, if you make the behavior optional without complicating SWE-agent (for example by providing new [commands](../config/tools.md)),
   we might be less strict.
-* Please add simple unit tests or integration tests wherever possible. Take a look in the [tests directory](https://github.com/princeton-nlp/SWE-agent/tree/main/tests)
+* Please add simple unit tests or integration tests wherever possible. Take a look in the [tests directory](https://github.com/SWE-agent/SWE-agent/tree/main/tests)
   for inspiration. We emphasize simple easy-tow-rite tests that get a lot of coverage.
 
-[gfi]: https://github.com/princeton-nlp/SWE-agent/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22%F0%9F%91%8B+good+first+issue%22+
-[help_wanted]: https://github.com/princeton-nlp/SWE-agent/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22%F0%9F%99%8F+help+wanted%22
+[gfi]: https://github.com/SWE-agent/SWE-agent/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22%F0%9F%91%8B+good+first+issue%22+
+[help_wanted]: https://github.com/SWE-agent/SWE-agent/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22%F0%9F%99%8F+help+wanted%22
 
 ## Building the documentation <a name="mkdocs"></a>
 
