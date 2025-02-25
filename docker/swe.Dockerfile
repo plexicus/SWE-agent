@@ -45,9 +45,11 @@ RUN conda create -y -n python3.10 python=3.10
 COPY SWE-agent/docker/requirements.txt /root/requirements.txt
 RUN pip install -r /root/requirements.txt
 
-RUN mkdir /root/swe-rex
-COPY swe-rex /root/swe-rex
-RUN pip install -e /root/swe-rex
+RUN pipx install swe-rex
+
+# RUN mkdir /root/swe-rex
+# COPY swe-rex /root/swe-rex
+# RUN pip install -e /root/swe-rex
 
 WORKDIR /
 
