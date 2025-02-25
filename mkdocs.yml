@@ -87,8 +87,6 @@ nav:
       - "Templates": "config/templates.md"
       - "Models": "config/models.md"
       - "Demonstrations": "config/demonstrations.md"
-      - "Tools": "config/tools.md"
-      - "Environments": "config/environments.md"
     - Development:
       - "Contribution guide": "dev/contribute.md"
       - "Formatting conflicts": "dev/formatting_conflicts.md"
