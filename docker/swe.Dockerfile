@@ -1,6 +1,7 @@
 FROM ubuntu:jammy
 
 ARG TARGETARCH
+ENV PYTHONDONTWRITEBYTECODE=1
 
 # Install third party tools
 RUN apt-get update && \
@@ -27,7 +28,7 @@ RUN echo "alias ls='ls -F'" >> /root/.bashrc
 # Install miniconda
 ENV PATH="/root/miniconda3/bin:${PATH}"
 ARG PATH="/root/miniconda3/bin:${PATH}"
-COPY SWE-agent/docker/getconda.sh .
+COPY docker/getconda.sh .
 RUN bash getconda.sh ${TARGETARCH} \
     && rm getconda.sh \
     && mkdir /root/.conda \
@@ -42,14 +43,8 @@ RUN conda create -y -n python3.9 python=3.9
 RUN conda create -y -n python3.10 python=3.10
 
 # Install python packages
-COPY SWE-agent/docker/requirements.txt /root/requirements.txt
+COPY docker/requirements.txt /root/requirements.txt
 RUN pip install -r /root/requirements.txt
-
-RUN pipx install swe-rex
-
-# RUN mkdir /root/swe-rex
-# COPY swe-rex /root/swe-rex
-# RUN pip install -e /root/swe-rex
 
 WORKDIR /
 
