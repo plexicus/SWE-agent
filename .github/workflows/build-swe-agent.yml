@@ -40,8 +40,6 @@ jobs:
           context: .
           file: docker/swe.Dockerfile
           platforms: linux/amd64,linux/arm64
-          build-args: |
-            TARGETARCH=amd64
           push: true
           tags: |
             crplexicus.azurecr.io/swe-agent:${{ env.branch }}-${{ github.run_number }}
