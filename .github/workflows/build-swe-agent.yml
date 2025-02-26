@@ -16,6 +16,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
@@ -29,7 +32,6 @@ jobs:
       - name: Extract branch name
         id: extract_branch
         run: |
-          # Extract the branch name and sanitize it
           BRANCH_NAME=${GITHUB_REF#refs/heads/}
           BRANCH_NAME=${BRANCH_NAME//[^a-zA-Z0-9_]/-}
           echo "branch=$BRANCH_NAME" >> $GITHUB_ENV
@@ -47,8 +49,7 @@ jobs:
               (github.ref == 'refs/heads/main' && 'crplexicus.azurecr.io/swe-agent:latest') ||
               (github.ref == 'refs/heads/dev' && 'crplexicus.azurecr.io/swe-agent:dev-latest')
             }}
-
-
+      
       - name: Log out
         if: always()
         run: docker logout crplexicus.azurecr.io
