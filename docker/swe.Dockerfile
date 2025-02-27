@@ -46,6 +46,12 @@ RUN conda create -y -n python3.10 python=3.10
 COPY docker/requirements.txt /root/requirements.txt
 RUN pip install -r /root/requirements.txt
 
+# Install swe-rex for faster startup
+RUN pip install pipx
+RUN pipx install swe-rex
+RUN pipx ensurepath
+ENV PATH="$PATH:/root/.local/bin/"
+
 WORKDIR /
 
 CMD ["/bin/bash"]
